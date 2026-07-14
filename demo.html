@@ -1,0 +1,51 @@
+<script src="EE/arithmetic.js"></script>
+<script src="EE/eigenstuff.js"></script>
+<script src="eigenengine.js"></script>
+
+<canvas width=600 height=400 id="can"></canvas>
+<script>
+c = can.getContext("2d")
+function plotVector(vec){
+    c.fillStyle="#000000"
+    c.fillRect(0,0,can.width,can.height)
+    c.lineCap="round"
+    c.lineWidth=3
+    for(n=0;n<vec.length-1;n++){
+        var mag = cmult(vec[n],cconj(vec[n]))
+        var mag2 = cmult(vec[n+1],cconj(vec[n+1]))
+        
+        c.strokeStyle="#FFFFFF"
+        c.beginPath()
+        c.moveTo(can.width*n/(vec.length-1), (can.height/2)-mag.r*(can.height*vec.length/10))
+        c.lineTo(can.width*(n+1)/(vec.length-1), (can.height/2)-mag2.r*(can.height*vec.length/10))
+        c.stroke()
+    }
+}
+
+
+function plotVectors(vecs){
+    c.fillStyle="#000000"
+    c.fillRect(0,0,can.width,can.height)
+    c.lineCap="round"
+    c.lineWidth=3
+    for(m=0;m<vecs.length;m++){
+        var vec = vecs[m]
+    for(n=0;n<vec.length-1;n++){
+        var mag = cmult(vec[n],cconj(vec[n]))
+        var mag2 = cmult(vec[n+1],cconj(vec[n+1]))
+        
+        c.strokeStyle="#FFFF0040"
+        c.beginPath()
+        c.moveTo(can.width*n/(vec.length-1), (can.height/2)-mag.r*(can.height*vec.length/10))
+        c.lineTo(can.width*(n+1)/(vec.length-1), (can.height/2)-mag2.r*(can.height*vec.length/10))
+        c.stroke()
+    }
+}
+}
+
+
+H = construct1DHamiltonian(9,(x)=>{return 10*(x-0.5)**2},0,1)
+logmat(H,5,3)
+HEigens = eigenSolveHamiltonian(H,0.01,0.01,100,1e-4)
+plotVectors(HEigens)
+</script>
