@@ -1,5 +1,6 @@
 <script src="EE/arithmetic.js"></script>
 <script src="EE/eigenstuff.js"></script>
+<script src="EE/opmet.js"></script>
 <script src="eigenengine.js"></script>
 
 <canvas width=600 height=400 id="can"></canvas>
@@ -16,8 +17,8 @@ function plotVector(vec){
         
         c.strokeStyle="#FFFFFF"
         c.beginPath()
-        c.moveTo(can.width*n/(vec.length-1), (can.height/2)-mag.r*(can.height*vec.length/10))
-        c.lineTo(can.width*(n+1)/(vec.length-1), (can.height/2)-mag2.r*(can.height*vec.length/10))
+        c.moveTo(can.width*n/(vec.length-1), (can.height/2)-mag.r*(can.height*vec.length/30))
+        c.lineTo(can.width*(n+1)/(vec.length-1), (can.height/2)-mag2.r*(can.height*vec.length/30))
         c.stroke()
     }
 }
@@ -44,8 +45,9 @@ function plotVectors(vecs){
 }
 
 
-H = construct1DHamiltonian(9,(x)=>{return 10*(x-0.5)**2},0,1)
+H = construct1DHamiltonian(75,(x)=>{return 0*5*(x-0.5)**2},0,1)
 logmat(H,5,3)
-HEigens = eigenSolveHamiltonian(H,0.01,0.01,100,1e-4)
-plotVectors(HEigens)
+//HEigens = eigenSolveHamiltonian(H,0.01,0.01,100,1e-4)
+//plotVectors(HEigens)
+plotVector(normalise(OPFindRealEigenvector(H,0.1,1000)))
 </script>
